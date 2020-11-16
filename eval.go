@@ -561,13 +561,13 @@ func (v *evalVisitor) evalCtxPath(ctx reflect.Value, parts []string, exprRoot bo
 // isHelperCall returns true if given expression is a helper call
 func (v *evalVisitor) isHelperCall(node *ast.Expression) bool {
 	if helperName := node.HelperName(); helperName != "" {
-		return v.findHelper(helperName) != zero
+		return v.f(helperName) != zero
 	}
 	return false
 }
 
 // findHelper finds given helper
-func (v *evalVisitor) findHelper(name string) reflect.Value {
+func (v *evalVisitor) f(name string) reflect.Value {
 	// check template helpers
 	if h := v.tpl.findHelper(name); h != zero {
 		return h
@@ -912,7 +912,7 @@ func (v *evalVisitor) VisitExpression(node *ast.Expression) interface{} {
 
 	// helper call
 	if helperName := node.HelperName(); helperName != "" {
-		if helper := v.findHelper(helperName); helper != zero {
+		if helper := v.f(helperName); helper != zero {
 			result = v.callHelper(helperName, helper, node)
 			done = true
 		}

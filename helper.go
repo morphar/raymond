@@ -95,6 +95,16 @@ func findHelper(name string) reflect.Value {
 	return helpers[name]
 }
 
+// Check if the Handler Exists
+func HandlerExists(name string) bool {
+	var zero reflect.Value
+	res:= findHelper(name)
+	if res == zero{
+		return false
+	}
+	return true
+}
+
 // newOptions instanciates a new Options
 func newOptions(eval *evalVisitor, params []interface{}, hash map[string]interface{}) *Options {
 	return &Options{
