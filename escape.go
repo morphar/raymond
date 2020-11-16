@@ -14,6 +14,10 @@ import (
 //
 // To stay in sync with JS implementation, and make mustache tests pass.
 //
+// Above logic modified by Third Light to avoid behaviour in Exchange email server which double escapes &apos;
+// This is probably related to a comment in the above mentioned go stdlib file:
+//    "...apos was not in HTML until HTML5."
+//
 
 type writer interface {
 	WriteString(string) (int, error)
@@ -32,7 +36,7 @@ func escape(w writer, s string) error {
 		case '&':
 			esc = "&amp;"
 		case '\'':
-			esc = "&apos;"
+			esc = "&#39;"
 		case '<':
 			esc = "&lt;"
 		case '>':
