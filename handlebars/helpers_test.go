@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/aymerick/raymond"
+	"github.com/seek-oss/raymond/v3"
 )
 
 //
@@ -265,7 +265,7 @@ var helpersTests = []Test{
 		nil,
 		map[string]interface{}{"list": listHelper},
 		nil,
-		`<p>Nobody&apos;s here</p>`,
+		`<p>Nobody&#39;s here</p>`,
 	},
 
 	{

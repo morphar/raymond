@@ -3,11 +3,12 @@ package raymond
 import (
 	"bytes"
 	"fmt"
+	"html"
 	"reflect"
 	"strconv"
 	"strings"
 
-	"github.com/aymerick/raymond/ast"
+	"github.com/seek-oss/raymond/v3/ast"
 )
 
 var (
@@ -804,7 +805,7 @@ func (v *evalVisitor) VisitMustache(node *ast.MustacheStatement) interface{} {
 	str := Str(expr)
 	if !isSafe && !node.Unescaped {
 		// escape html
-		str = Escape(str)
+		str = html.EscapeString(str)
 	}
 
 	return str

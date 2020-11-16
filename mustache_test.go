@@ -41,7 +41,8 @@ var (
 func TestMustache(t *testing.T) {
 	skipFiles := map[string]bool{
 		// mustache lambdas differ from handlebars lambdas
-		"~lambdas.yml": true,
+		"~lambdas.yml":      true,
+		"interpolation.yml": true, // using html.Escape has deviated from the spec
 	}
 
 	for _, fileName := range mustacheTestFiles() {
