@@ -334,7 +334,11 @@ func (v *evalVisitor) evalField(ctx reflect.Value, fieldName string, exprRoot bo
 			if nameVal.Type().AssignableTo(ctx.Type().Key()) {
 				// map key
 				result = ctx.MapIndex(nameVal)
+			} else if nameVal.Type().ConvertibleTo(ctx.Type().Key()) {
+				// map key converted
+				result = ctx.MapIndex(nameVal.Convert(ctx.Type().Key()))
 			}
+			
 		case reflect.Array, reflect.Slice:
 			if i, err := strconv.Atoi(fieldName); (err == nil) && (i < ctx.Len()) {
 				result = ctx.Index(i)
