@@ -116,6 +116,19 @@ func newEmptyOptions(eval *evalVisitor) *Options {
 // Context Values
 //
 
+// ValueFromAllCtx returns the first occurence of field value from all the contexts in the stack. The search occurs backwards from the current context, ending at the root context.
+func (options *Options) ValueFromAllCtx(name string) interface{} {
+	// Loop through all contexts in the stack
+	for index := range options.eval.ctx {
+		value := options.eval.evalField(options.eval.ancestorCtx(index), name, false)
+		if value.IsValid() {
+			return value.Interface()
+		}
+	}
+
+	return nil
+}
+
 // Value returns field value from current context.
 func (options *Options) Value(name string) interface{} {
 	value := options.eval.evalField(options.eval.curCtx(), name, false)
@@ -134,6 +147,21 @@ func (options *Options) ValueStr(name string) string {
 // Ctx returns current evaluation context.
 func (options *Options) Ctx() interface{} {
 	return options.eval.curCtx().Interface()
+}
+
+// AllCtx returns the union of all contexts in the stack. Values from a context higher in the stack overwite values of lower contexts.
+func (options *Options) AllCtx() interface{} {
+	allCtx := make(map[string]interface{})
+	// Loop backwards through all contexts in the stack
+	for i := len(options.eval.ctx) - 1; i >= 0; i-- {
+		if ctxMap, ok := options.eval.ancestorCtx(i).Interface().(map[string]interface{}); ok {
+			for key, value := range ctxMap {
+				allCtx[key] = value
+			}
+		}
+	}
+
+	return allCtx
 }
 
 //
@@ -384,7 +412,7 @@ func logHelper(message string) interface{} {
 
 // #lookup helper
 func lookupHelper(obj interface{}, field string, options *Options) interface{} {
-	return Str(options.Eval(obj, field))
+	return options.Eval(obj, field)
 }
 
 // #equal helper
