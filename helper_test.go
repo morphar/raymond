@@ -220,6 +220,58 @@ foo is the same as baz
 there is one
 everything is stringified before comparison`,
 	},
+	{
+		"#gt helper with string value",
+		`{{#gt 5.3 4.9}}YES MAN{{/gt}}`,
+		nil, nil, nil, nil,
+		"YES MAN",
+	},
+	{
+		"#gt helper with context values",
+		`{{#gt foo bar}}YES MAN{{/gt}}`,
+		map[string]interface{}{"foo": 1337, "bar": -520.123},
+		nil, nil, nil,
+		"YES MAN",
+	},
+	{
+		"#lt helper with string value",
+		`{{#lt 4.9 5.0}}YES MAN{{/lt}}`,
+		nil, nil, nil, nil,
+		"YES MAN",
+	},
+	{
+		"#lt helper with context values",
+		`{{#lt foo bar}}YES MAN{{/lt}}`,
+		map[string]interface{}{"foo": -520.1133, "bar": 1337},
+		nil, nil, nil,
+		"YES MAN",
+	},
+	{
+		"#gte helper with string value",
+		`{{#gte 5.3 5.3}}YES MAN{{/gte}}`,
+		nil, nil, nil, nil,
+		"YES MAN",
+	},
+	{
+		"#gte helper with context values",
+		`{{#gte foo bar}}YES MAN{{/gte}}`,
+		map[string]interface{}{"foo": 1337, "bar": -520.123},
+		nil, nil, nil,
+		"YES MAN",
+	},
+	{
+		"#lte helper with string value",
+		`{{#lte 5.0 5.0}}YES MAN{{/lte}}`,
+		nil, nil, nil, nil,
+		"YES MAN",
+	},
+	{
+		"#lte helper with context values",
+		`{{#lte foo bar}}YES MAN{{/lte}}`,
+		map[string]interface{}{"foo": -520.1133, "bar": 1337},
+		nil, nil, nil,
+		"YES MAN",
+	},
 }
 
 //
