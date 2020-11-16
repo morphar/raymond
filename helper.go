@@ -10,7 +10,7 @@ import (
 // Options represents the options argument provided to helpers and context functions.
 type Options struct {
 	// evaluation visitor
-	eval *evalVisitor
+	eval *EvalVisitor
 
 	// params
 	params []interface{}
@@ -96,7 +96,7 @@ func findHelper(name string) reflect.Value {
 }
 
 // newOptions instanciates a new Options
-func newOptions(eval *evalVisitor, params []interface{}, hash map[string]interface{}) *Options {
+func newOptions(eval *EvalVisitor, params []interface{}, hash map[string]interface{}) *Options {
 	return &Options{
 		eval:   eval,
 		params: params,
@@ -105,7 +105,7 @@ func newOptions(eval *evalVisitor, params []interface{}, hash map[string]interfa
 }
 
 // newEmptyOptions instanciates a new empty Options
-func newEmptyOptions(eval *evalVisitor) *Options {
+func newEmptyOptions(eval *EvalVisitor) *Options {
 	return &Options{
 		eval: eval,
 		hash: make(map[string]interface{}),

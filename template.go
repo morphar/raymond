@@ -214,7 +214,7 @@ func (tpl *Template) ExecWith(ctx interface{}, privData *DataFrame) (result stri
 	}
 
 	// setup visitor
-	v := newEvalVisitor(tpl, ctx, privData)
+	v := NewEvalVisitor(tpl, ctx, privData)
 
 	// visit AST
 	result, _ = tpl.program.Accept(v).(string)
