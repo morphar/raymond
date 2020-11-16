@@ -4,9 +4,9 @@ package raymond
 // Render parses a template and evaluates it with given context
 //
 // Note that this function call is not optimal as your template is parsed everytime you call it. You should use Parse() function instead.
-func Render(source string, ctx interface{}) (string, error) {
+func Render(source string, ctx interface{}, opts *TemplateOptions) (string, error) {
 	// parse template
-	tpl, err := Parse(source)
+	tpl, err := Parse(source, opts)
 	if err != nil {
 		return "", err
 	}
@@ -24,5 +24,5 @@ func Render(source string, ctx interface{}) (string, error) {
 //
 // Note that this function call is not optimal as your template is parsed everytime you call it. You should use Parse() function instead.
 func MustRender(source string, ctx interface{}) string {
-	return MustParse(source).MustExec(ctx)
+	return MustParse(source, nil).MustExec(ctx)
 }

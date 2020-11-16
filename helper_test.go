@@ -258,7 +258,7 @@ func TestHelperCtx(t *testing.T) {
 		context := options.Ctx()
 
 		template := name + " - {{ firstName }} {{ lastName }}"
-		result, _ := Render(template, context)
+		result, _ := Render(template, context, nil)
 
 		return SafeString(result)
 	})
@@ -266,7 +266,7 @@ func TestHelperCtx(t *testing.T) {
 	template := `By {{ template "namefile" }}`
 	context := Author{"Alan", "Johnson"}
 
-	result, _ := Render(template, context)
+	result, _ := Render(template, context, nil)
 	if result != "By namefile - Alan Johnson" {
 		t.Errorf("Failed to render template in helper: %q", result)
 	}

@@ -11,7 +11,7 @@ func Example() {
 	}
 
 	// parse template
-	tpl := MustParse(source)
+	tpl := MustParse(source, nil)
 
 	// evaluate template with context
 	output := tpl.MustExec(ctx)
@@ -90,7 +90,7 @@ func ExampleRender() {
 	}
 
 	// render template with context
-	output, err := Render(tpl, ctx)
+	output, err := Render(tpl, ctx, nil)
 	if err != nil {
 		panic(err)
 	}
