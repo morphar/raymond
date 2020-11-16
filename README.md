@@ -1315,7 +1315,7 @@ package main
 import (
     "fmt"
 
-    "github.com/aymerick/raymond/lexer"
+    "github.com/suplari/raymond/lexer"
 )
 
 func main() {
@@ -1357,8 +1357,8 @@ package main
 import (
     "fmt"
 
-    "github.com/aymerick/raymond/ast"
-    "github.com/aymerick/raymond/parser"
+    "github.com/suplari/raymond/ast"
+    "github.com/suplari/raymond/parser"
 )
 
 fu  nc main() {

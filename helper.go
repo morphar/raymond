@@ -125,10 +125,29 @@ func (options *Options) Value(name string) interface{} {
 
 	return value.Interface()
 }
+func (options *Options) ValueFromAllCtx(name string) (interface{}, interface{}) {
+	// Loop through all contexts in the stack
+	for index := range options.eval.ctx {
+		value := options.eval.evalField(options.eval.ancestorCtx(index), name, false)
+		if value.IsValid() {
+			return value.Interface(), options.eval.ancestorCtx(index)
+		}
+	}
+
+	return nil, nil
+}
 
 // ValueStr returns string representation of field value from current context.
 func (options *Options) ValueStr(name string) string {
 	return Str(options.Value(name))
+}
+
+func (options *Options) RootCtx() interface{} {
+	return options.eval.rootCtx()
+}
+
+func (options *Options) TopCtx() interface{} {
+	return options.eval.ctxAtIndex(0).Interface()
 }
 
 // Ctx returns current evaluation context.

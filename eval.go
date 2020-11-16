@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/aymerick/raymond/ast"
+	"github.com/suplari/raymond/ast"
 )
 
 var (
@@ -85,6 +85,11 @@ func (v *evalVisitor) popCtx() reflect.Value {
 	result, v.ctx = v.ctx[len(v.ctx)-1], v.ctx[:len(v.ctx)-1]
 
 	return result
+}
+
+// rootCtx returns root context
+func (v *evalVisitor) ctxAtIndex(idx int) reflect.Value {
+	return v.ctx[idx]
 }
 
 // rootCtx returns root context
