@@ -203,7 +203,7 @@ func (tpl *Template) MustExec(ctx interface{}) string {
 	return result
 }
 
-// ExecWith evaluates template with given context and private data frame.
+// ExecWith executes the template with given context and private data frame.
 func (tpl *Template) ExecWith(ctx interface{}, privData *DataFrame) (result string, err error) {
 	defer errRecover(&err)
 
@@ -219,7 +219,6 @@ func (tpl *Template) ExecWith(ctx interface{}, privData *DataFrame) (result stri
 	// visit AST
 	result, _ = tpl.program.Accept(v).(string)
 
-	// named return values
 	return
 }
 
